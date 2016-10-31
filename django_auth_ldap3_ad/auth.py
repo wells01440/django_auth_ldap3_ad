@@ -306,5 +306,9 @@ class LDAP3ADBackend(object):
                 if settings.LDAP_ATTRIBUTES_MAP[attr] in attributes \
                         and len(attributes[settings.LDAP_ATTRIBUTES_MAP[attr]]) >= 1 \
                         and hasattr(user, attr):
-                    setattr(user, attr, attributes[settings.LDAP_ATTRIBUTES_MAP[attr]][0])
+
+                    setting_name = settings.LDAP_ATTRIBUTES_MAP[attr]
+                    setattr(user, attr, attributes[setting_name])
+                    # original code caused me to only get first letter of each string
+                    # setattr(user, attr, attributes[settings.LDAP_ATTRIBUTES_MAP[attr]][0])
         user.save()
